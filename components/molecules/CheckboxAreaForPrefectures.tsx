@@ -9,8 +9,8 @@ const CheckboxAreaForPrefectures = ({
 }) => {
   return (
     <div className={styles.container}>
-      <Checkbox label={prefecture.prefName} />
-      <Label label={prefecture.prefName} />
+      <Checkbox prefecture={prefecture} />
+      <Label prefecture={prefecture} />
     </div>
   );
 };

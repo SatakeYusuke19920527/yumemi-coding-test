@@ -1,7 +1,12 @@
-const Label = ({ label }: { label: string }) => {
+import { PrefectureType } from '../../types/types';
+
+const Label = ({ prefecture }: { prefecture: PrefectureType }) => {
   return (
-    <label id={label} htmlFor={label}>
-      {label}
+    <label
+      id={prefecture.prefCode.toString()}
+      htmlFor={prefecture.prefCode.toString()}
+    >
+      {prefecture.prefName}
     </label>
   );
 };

@@ -6,7 +6,6 @@ import CheckboxAreaForPrefectures from '../molecules/CheckboxAreaForPrefectures'
 const PrefectureList: FC<PrefectureListProps> = ({ prefectureList }) => {
   return (
     <section className={styles.container}>
-      <h2>都道府県一覧</h2>
       <main className={styles.prefContainer}>
         {prefectureList.map((prefecture, index) => {
           return (

@@ -22,21 +22,16 @@ export const getStaticProps: GetStaticProps = async () => {
 
 const Home: NextPage<IndexProps> = ({ prefectures }) => {
   const dispatch = useAppDispatch();
-  const { prefectureList, demographics } = useAppSelector(selectResasData);
+  const { prefectureList, demographics, showPrefectures } =
+    useAppSelector(selectResasData);
   useEffect(() => {
     dispatch(get_prefectures_list(prefectures));
     getDemographicsData();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [dispatch, prefectures]);
+  }, [dispatch, prefectures, showPrefectures]);
 
   const getDemographicsData = async () => {
-    const prop = [
-      { prefCode: 1, prefName: '北海道' },
-      { prefCode: 2, prefName: '青森県' },
-      { prefCode: 3, prefName: '岩手県' },
-    ];
-    const res = await getDemographics(prop);
-    console.log('🚀 ~ file: index.tsx:31 ~ getData ~ res', res);
+    const res = await getDemographics(showPrefectures ? showPrefectures : []);
     dispatch(get_demographics(res));
   };
   return (

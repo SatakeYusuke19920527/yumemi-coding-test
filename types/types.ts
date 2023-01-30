@@ -25,6 +25,7 @@ export type PrefecturesListType = {
 export type ResasDataType = {
   prefectureList: PrefectureType[];
   demographics: DemographicsType[];
+  showPrefectures?: PrefectureType[];
 };
 
 export type DemographicsType = {

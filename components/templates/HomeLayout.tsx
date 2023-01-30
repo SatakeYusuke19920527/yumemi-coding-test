@@ -7,7 +7,6 @@ import Navbar from '../organisms/Navbar';
 import PrefectureList from '../organisms/PrefectureList';
 
 const HomeLayout: FC<HomeLayoutProps> = ({ prefectureList, demographics }) => {
-  console.log('🚀 ~ file: HomeLayout.tsx:9 ~ demographics', demographics);
   return (
     <section className={styles.container}>
       <Head>
@@ -17,7 +16,9 @@ const HomeLayout: FC<HomeLayoutProps> = ({ prefectureList, demographics }) => {
       </Head>
       <Navbar />
       <main className={styles.main}>
+        <h2>都道府県一覧</h2>
         <PrefectureList prefectureList={prefectureList} />
+        <h2>総人口数</h2>
         <Graph demographics={demographics} />
       </main>
     </section>
