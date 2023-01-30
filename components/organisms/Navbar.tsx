@@ -1,6 +1,7 @@
+import styles from '../../styles/components/organisms/Navbar.module.css';
 const Navbar = () => {
   return (
-    <header>
+    <header className={styles.container}>
       <h1>header</h1>
     </header>
   );

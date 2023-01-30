@@ -1,11 +1,15 @@
-import { ReactNode } from 'react';
-
-export type HomeLayoutProps = {
-  children: ReactNode;
-};
+export type HomeLayoutProps = ResasDataType;
 
 export type IndexProps = {
-  prefectureList: any[];
+  prefectures: any[];
+};
+
+export type PrefectureListProps = {
+  prefectureList: PrefectureType[];
+};
+
+export type GraphProps = {
+  demographics: DemographicsType[];
 };
 
 export type PrefectureType = {
@@ -24,6 +28,7 @@ export type ResasDataType = {
 };
 
 export type DemographicsType = {
+  prefCode?: number;
   message: string | null;
   result: DemographicsResultType[];
 };

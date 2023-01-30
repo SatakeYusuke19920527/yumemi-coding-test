@@ -35,12 +35,14 @@ export const getDemographics = async (prefCodes: string[]) => {
   });
 
   // 並列処理で人口数を取得
-  const res = await axios.all(
+  const result = await axios.all(
     requestUrls.map((requestUrl) => {
       return fetchDemographicsData(requestUrl);
     })
   );
-  return res.map((r: any) => r.data);
+  return result.map((data: any, index: number) => {
+    return { ...data, prefCode: prefCodes[index], ...data };
+  });
 };
 
 /**
@@ -53,7 +55,7 @@ export const fetchDemographicsData = (requestUrl: string) => {
     resasAPI
       .get(requestUrl, resasApiHeaders)
       .then((res) => {
-        resolve(res);
+        resolve(res.data);
       })
       .catch((err) => {
         reject(err);

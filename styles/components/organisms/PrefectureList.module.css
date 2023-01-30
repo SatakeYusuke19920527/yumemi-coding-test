@@ -1,0 +1,9 @@
+.container {
+  margin: 1rem 0;
+}
+
+.prefContainer {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+}
