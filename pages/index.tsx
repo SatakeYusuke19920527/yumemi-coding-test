@@ -24,16 +24,16 @@ const Home: NextPage<IndexProps> = ({ prefectures }) => {
   const dispatch = useAppDispatch();
   const { prefectureList, demographics, showPrefectures } =
     useAppSelector(selectResasData);
+
   useEffect(() => {
     dispatch(get_prefectures_list(prefectures));
+    const getDemographicsData = async () => {
+      const res = await getDemographics(showPrefectures ? showPrefectures : []);
+      dispatch(get_demographics(res));
+    };
     getDemographicsData();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [dispatch, prefectures, showPrefectures]);
 
-  const getDemographicsData = async () => {
-    const res = await getDemographics(showPrefectures ? showPrefectures : []);
-    dispatch(get_demographics(res));
-  };
   return (
     <HomeLayout prefectureList={prefectureList} demographics={demographics} />
   );

@@ -83,3 +83,10 @@ GitHub の public リポジトリの URL をお知らせください。
 ## atomic design 参考サイト
 
 > https://atomicdesign.bradfrost.com/chapter-2/
+
+## 課題
+
+1. checkbox にロジックがある
+2. レスポンシブデザイン
+3. 既にある情報まで fetch している。既にある情報の fetch はしないように修正
+4. テスト
