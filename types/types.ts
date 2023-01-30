@@ -29,8 +29,9 @@ export type ResasDataType = {
 
 export type DemographicsType = {
   prefCode?: number;
+  prefName?: string;
   message: string | null;
-  result: DemographicsResultType[];
+  result: DemographicsResultType;
 };
 
 export type DemographicsResultType = {

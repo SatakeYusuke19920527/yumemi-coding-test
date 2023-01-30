@@ -25,12 +25,17 @@ const Home: NextPage<IndexProps> = ({ prefectures }) => {
   const { prefectureList, demographics } = useAppSelector(selectResasData);
   useEffect(() => {
     dispatch(get_prefectures_list(prefectures));
-    getData();
+    getDemographicsData();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [dispatch, prefectures]);
 
-  const getData = async () => {
-    const res = await getDemographics(['1', '2', '3']);
+  const getDemographicsData = async () => {
+    const prop = [
+      { prefCode: 1, prefName: '北海道' },
+      { prefCode: 2, prefName: '青森県' },
+      { prefCode: 3, prefName: '岩手県' },
+    ];
+    const res = await getDemographics(prop);
     console.log('🚀 ~ file: index.tsx:31 ~ getData ~ res', res);
     dispatch(get_demographics(res));
   };

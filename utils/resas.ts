@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { PrefecturesListType } from '../types/types';
+import { PrefecturesListType, PrefectureType } from '../types/types';
 
 const resasAPI = axios.create({
   baseURL: 'https://opendata.resas-portal.go.jp/api/v1',
@@ -28,10 +28,10 @@ export const getJapanesePrefectures = async () => {
  * @param prefCodes
  * @returns 指定した都道府県の人口数
  */
-export const getDemographics = async (prefCodes: string[]) => {
+export const getDemographics = async (prefectures: PrefectureType[]) => {
   // requestするURLを作成
-  const requestUrls = prefCodes.map((pfc) => {
-    return `/population/composition/perYear?prefCode=` + pfc;
+  const requestUrls = prefectures.map((pref) => {
+    return `/population/composition/perYear?prefCode=` + pref.prefCode;
   });
 
   // 並列処理で人口数を取得
@@ -41,7 +41,12 @@ export const getDemographics = async (prefCodes: string[]) => {
     })
   );
   return result.map((data: any, index: number) => {
-    return { ...data, prefCode: prefCodes[index], ...data };
+    return {
+      ...data,
+      prefCode: prefectures[index].prefCode,
+      prefName: prefectures[index].prefName,
+      ...data,
+    };
   });
 };
 
