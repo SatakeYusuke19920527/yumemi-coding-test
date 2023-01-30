@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useRef } from 'react';
 import {
   delete_showPrefectures,
   set_showPrefectures,
@@ -7,10 +7,11 @@ import { useAppDispatch } from '../../hooks/useRTK';
 import { PrefectureType } from '../../types/types';
 
 const Checkbox = ({ prefecture }: { prefecture: PrefectureType }) => {
-  const [isChecked, setIsChecked] = useState<boolean>(false);
+  const checkBoxRef = useRef<HTMLInputElement>(null);
   const dispatch = useAppDispatch();
-  useEffect(() => {
-    if (isChecked) {
+
+  const handleClick = () => {
+    if (checkBoxRef.current?.checked) {
       dispatch(
         set_showPrefectures({
           prefCode: prefecture.prefCode,
@@ -25,14 +26,15 @@ const Checkbox = ({ prefecture }: { prefecture: PrefectureType }) => {
         })
       );
     }
-  }, [isChecked]);
+  };
 
   return (
     <input
       type="checkbox"
       name={prefecture.prefName}
       id={prefecture.prefCode.toString()}
-      onChange={() => setIsChecked(!isChecked)}
+      onChange={handleClick}
+      ref={checkBoxRef}
     />
   );
 };
