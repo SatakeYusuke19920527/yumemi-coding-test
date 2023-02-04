@@ -30,24 +30,17 @@ export const getJapanesePrefectures = async () => {
  */
 export const getDemographics = async (prefectures: PrefectureType[]) => {
   // requestするURLを作成
-  const requestUrls = prefectures.map((pref) => {
-    return `/population/composition/perYear?prefCode=` + pref.prefCode;
+  const requestUrls = prefectures.map(({ prefCode }) => {
+    return `/population/composition/perYear?prefCode=${prefCode}`;
   });
 
   // 並列処理で人口数を取得
-  const result = await axios.all(
-    requestUrls.map((requestUrl) => {
-      return fetchDemographicsData(requestUrl);
-    })
-  );
-  return result.map((data: any, index: number) => {
-    return {
-      ...data,
-      prefCode: prefectures[index].prefCode,
-      prefName: prefectures[index].prefName,
-      ...data,
-    };
-  });
+  const result = await Promise.all(requestUrls.map(fetchDemographicsData));
+  return result.map((data, index) => ({
+    ...data,
+    prefCode: prefectures[index].prefCode,
+    prefName: prefectures[index].prefName,
+  }));
 };
 
 /**
@@ -55,15 +48,7 @@ export const getDemographics = async (prefectures: PrefectureType[]) => {
  * @param requestUrl
  * @returns 人口数
  */
-export const fetchDemographicsData = (requestUrl: string) => {
-  return new Promise((resolve, reject) => {
-    resasAPI
-      .get(requestUrl, resasApiHeaders)
-      .then((res) => {
-        resolve(res.data);
-      })
-      .catch((err) => {
-        reject(err);
-      });
-  });
+export const fetchDemographicsData = async (requestUrl: string) => {
+  const res = await resasAPI.get(requestUrl, resasApiHeaders);
+  return res.data;
 };
